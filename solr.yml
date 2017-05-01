@@ -1,0 +1,40 @@
+config:
+  target: 'http://localhost:8983'
+  variables:
+    query: 
+      - "q=title:*articles*&cache=false&wt=json"
+
+  http:
+    timeout: 10
+    pool: 100
+    tls:
+      rejectUnauthorized: false
+
+  phases:
+    - duration: 30
+      arrivalRate: 10
+      name: "Initial Load"
+
+    - pause: 10
+
+    - duration: 30
+      arrivalCount: 100
+      name: "Rampup Load"
+
+    - pause: 10
+
+    - duration: 30
+      arrivalRate: 100
+      name: "Full Load"
+
+  defaults:
+    headers:
+      Content-type: 'application/json'
+
+scenarios:
+  - name: "Basic Search"
+    flow:
+    - get:
+        url: "/solr/docdb/select?{{ query }}"
+        headers:
+          Content-type: 'application/json'
