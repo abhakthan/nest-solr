@@ -40,6 +40,19 @@ function xmlToJson(files, count) {
 
       var documents = result['exch_exchange_document'];
 
+      /*
+        // write individual json file
+        for (var i = 0; i < documents.length; i++) {
+          fs.writeFile(__dirname + '/json/' + i + '.json', JSON.stringify(documents[i], null, '  '), 'utf8', function (err) {
+            if (err) {
+              console.log(err);
+            }
+            console.log(jsonFileName);
+          });
+        }
+      */
+
+      // /*
       var rows = childDocuments(documents);
 
       fs.writeFile(jsonFileName, JSON.stringify(rows, null, '  '), 'utf8', function (err) {
@@ -52,6 +65,7 @@ function xmlToJson(files, count) {
         //   xmlToJson(files, count);
         // }
       });
+      // */
 
     });
   });
@@ -61,40 +75,105 @@ function childDocuments(documents) {
   var rows = [];
 
   _.forEach(documents, function (element) {
-    var row = element.attrkey;
+
+    var row = {
+      id: element.attrkey.doc_id,
+      country: element.attrkey.country,
+      docNumber: element.attrkey.doc_number,
+      kind: element.attrkey.kind,
+      familyId: element.attrkey.family_id,
+      datePubl: element.attrkey.date_publ,
+      originatingOffice: element.attrkey.originating_office
+    }
+
     var child = [];
 
     var pub = docdb.publication(element);
     if (pub && pub.length > 0) {
       child = _.concat(child, pub);
     }
+    pub = undefined;
 
     var app = docdb.application(element);
     if (app && app.length > 0) {
       child = _.concat(child, app);
     }
+    app = undefined;
 
     var cit = docdb.citation(element);
     if (cit && cit.length > 0) {
       child = _.concat(child, cit);
     }
+    cit = undefined;
 
     var cls = docdb.classification(element);
     if (cls && cls.length > 0) {
       child = _.concat(child, cls);
     }
+    cls = undefined;
 
-    row['path'] = "root";
+    var claims = docdb.claims(element);
+    if (claims && claims.length > 0) {
+      child = _.concat(child, claims);
+    }
+    claims = undefined;
+
+    var applicants = docdb.applicants(element);
+    if (applicants && applicants.length > 0) {
+      child = _.concat(child, applicants);
+    }
+    applicants = undefined;
+
+    var inventors = docdb.inventors(element);
+    if (inventors && inventors.length > 0) {
+      child = _.concat(child, inventors);
+    }
+    inventors = undefined;
+
+    row['level'] = "root";
     row['_childDocuments_'] = child;
 
-    row['id'] = row.doc_id;
-    row['title'] = docdb.inventionTitle(element);
+    var title = docdb.inventionTitle(element);
+    if (title) {
+      row['title'] = title;
+    }
+    title = undefined;
+
+    var abstract = docdb.abstract(element);
+    if (abstract) {
+      row['abstract'] = abstract;
+    }
+    abstract = undefined;
 
     rows.push(row);
   });
 
   return rows;
 }
+
+/**
+ * Add the keys to the main json and only
+ * add if there is data or has values in array
+ * 
+ * @param {*} row 
+ * @param {*} key 
+ * @param {*} value 
+ * @param {*} isArray 
+ */
+function addToMain(row, key, value, isArray) {
+  var data = docdb[key](value);
+  if (isArray) {
+    if (data && data.length > 0) {
+      row[key] = data;
+    }
+  } else {
+    if (data) {
+      row[key] = data;
+    }
+  }
+  data = undefined;
+}
+
 
 function flat(documents) {
   var rows = [];

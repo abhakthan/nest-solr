@@ -17,14 +17,14 @@ function get(doc) {
 
       if (element.classification_scheme.attrkey.scheme) {
         classification = {
-          id: id + '-' + element.classification_symbol,
-          path: 'classification',
+          id: id + '-' + element.attrkey.sequence,
+          level: 'classification',
           scheme: element.classification_scheme.attrkey.scheme,
-          classification_symbol: element.classification_symbol,
-          symbol_position: element.symbol_position,
-          classification_value: element.classification_value,
-          classification_status: element.classification_status,
-          classification_data_source: element.classification_data_source
+          classificationSymbol: element.classification_symbol,
+          symbolPosition: element.symbol_position,
+          classificationValue: element.classification_value,
+          classificationStatus: element.classification_status,
+          classificationDataSource: element.classification_data_source
         }
         json.push(classification)
       }

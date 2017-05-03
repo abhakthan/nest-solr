@@ -14,10 +14,11 @@ function get(doc) {
       if (element.document_id && element.attrkey.data_format === 'docdb') {
         var docdb = element.document_id;
         json.push({
-          id: id + '-' + docdb.doc_number,
-          path: 'application.docdb',
+          id: id + '-' + element.attrkey.doc_id,
+          level: 'application',
+          dataType: 'docdb',
           country: docdb.country,
-          doc_number: docdb.doc_number,
+          docNumber: docdb.doc_number,
           kind: docdb.kind,
           date: docdb.date
         });
@@ -25,8 +26,9 @@ function get(doc) {
         var original = element.document_id;
         json.push({
           id: id + '-' + original.doc_number,
-          path: 'application.original',
-          doc_number: original.doc_number,
+          level: 'application.original',
+          dataType: 'original',
+          docNumber: original.doc_number,
         })
       }
     });

@@ -19,18 +19,25 @@ function get(doc) {
         var docdb = element.patcit.document_id;
         cit = {
           id: id + '-' + docdb.doc_number,
-          path: 'citation.docdb',
+          level: 'citation',
+          dataType: 'patcit',
           country: docdb.country,
-          doc_number: docdb.doc_number,
+          docNumber: docdb.doc_number,
           kind: docdb.kind,
-          name: docdb.name,
+          personName: docdb.name,
           date: docdb.date
         }
 
-        if (element.attrkey && element.attrkey.cited_phase) {
-          cit['cited_phase'] = element.attrkey.cited_phase;
+        json.push(cit)
+      } else if (element.nplcit && element.nplcit.text) {
+        var data = element.nplcit;
+        cit = {
+          id: id + '-' + data.attrkey.num,
+          level: 'citation',
+          dataType: 'nplcit',
+          nplType: data.attrkey.npl_type,
+          text: data.text
         }
-
         json.push(cit)
       }
     });

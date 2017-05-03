@@ -1,6 +1,6 @@
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-field": {
-     "name": "family_id",
+     "name": "familyId",
      "type": "strings",
      "indexed": true,
      "multiValued": false },
@@ -10,7 +10,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
      "indexed": true,
      "multiValued": false },
   "add-field": {
-     "name": "doc_number",
+     "name": "docNumber",
      "type": "strings",
      "indexed": true,
      "multiValued": false },
@@ -20,7 +20,12 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
      "indexed": true,
      "multiValued": false },
   "add-field": {
-     "name": "name",
+     "name": "personName",
+     "type": "strings",
+     "indexed": true,
+     "multiValued": false },
+  "add-field": {
+     "name": "dataType",
      "type": "strings",
      "indexed": true,
      "multiValued": false },
@@ -30,7 +35,12 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
      "indexed": true,
      "multiValued": false },
   "add-field": {
-     "name": "path",
+     "name": "abstract",
+     "type": "strings",
+     "indexed": false,
+     "multiValued": false },
+  "add-field": {
+     "name": "level",
      "type": "strings",
      "indexed": true,
      "multiValued": false },
@@ -40,32 +50,27 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
      "indexed": true,
      "multiValued": false },
   "add-field": {
-     "name": "classification_symbol",
+     "name": "classificationSymbol",
      "type": "strings",
      "indexed": true,
      "multiValued": false },
   "add-field": {
-     "name": "symbol_position",
+     "name": "symbolPosition",
      "type": "strings",
      "indexed": false,
      "multiValued": false },
   "add-field": {
-     "name": "classification_value",
+     "name": "classificationValue",
      "type": "strings",
      "indexed": false,
      "multiValued": false },
   "add-field": {
-     "name": "classification_status",
+     "name": "classificationStatus",
      "type": "strings",
      "indexed": false,
      "multiValued": false },
   "add-field": {
-     "name": "classification_data_source",
-     "type": "strings",
-     "indexed": false,
-     "multiValued": false },
-  "add-field": {
-     "name": "cited_phase",
+     "name": "classificationDataSource",
      "type": "strings",
      "indexed": false,
      "multiValued": false },
@@ -75,32 +80,22 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
      "indexed": false,
      "multiValued": false },
   "add-field": {
-     "name": "date_added_docdb",
+     "name": "datePubl",
      "type": "strings",
      "indexed": false,
      "multiValued": false },
   "add-field": {
-     "name": "date_of_last_exchange",
+     "name": "originatingOffice",
      "type": "strings",
      "indexed": false,
      "multiValued": false },
   "add-field": {
-     "name": "date_publ",
+     "name": "nplType",
      "type": "strings",
      "indexed": false,
      "multiValued": false },
   "add-field": {
-     "name": "doc_id",
-     "type": "strings",
-     "indexed": false,
-     "multiValued": false },
-  "add-field": {
-     "name": "is_representative",
-     "type": "strings",
-     "indexed": false,
-     "multiValued": false },
-  "add-field": {
-     "name": "originating_office",
+     "name": "text",
      "type": "strings",
      "indexed": false,
      "multiValued": false }

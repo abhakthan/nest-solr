@@ -1,13 +1,21 @@
-var pub = require('./publication');
-var app = require('./application');
-var title = require('./title');
+var abstract = require('./abstract');
+var applicants = require('./applicants');
+var application = require('./application');
 var citation = require('./citation');
+var claims = require('./claims');
 var classification = require('./classification');
+var inventors = require('./inventors');
+var pub = require('./publication');
+var title = require('./title');
 
 module.exports = {
-  application: app,
+  abstract: abstract,
+  applicants: applicants,
+  application: application,
   citation: citation,
+  claims: claims,
   classification: classification,
   inventionTitle: title,
+  inventors: inventors,
   publication: pub
 };

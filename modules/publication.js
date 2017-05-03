@@ -15,9 +15,10 @@ function get(doc) {
         var docdb = element.document_id;
         json.push({
           id: id + '-' + docdb.doc_number,
-          path: 'publication.docdb',
+          level: 'publication',
+          dataType: 'docdb',
           country: docdb.country,
-          doc_number: docdb.doc_number,
+          docNumber: docdb.doc_number,
           kind: docdb.kind,
           date: docdb.date
         });
